@@ -1,3 +1,4 @@
+// This is for range minimum query or maximum query
 template<typename T, bool maximum_mode = false>
 struct RMQ {
     int n = 0;
@@ -45,3 +46,43 @@ struct RMQ {
         return values[query_index(a, b)];
     }
 };
+
+// This is Sparese table of other function
+template<typename T> // dec as [ST<int> st(vector<int>)]
+struct ST {
+    int n = 0;
+    vector<T> values;
+    vector<vector<int>> range_low;
+ 
+    ST(const vector<T> &_values = {}) {
+        if (!_values.empty())
+            build(_values);
+    }
+    static int largest_bit(int x) {
+        return x == 0 ? -1 : 31 - __builtin_clz(x);
+    }
+    
+    void build(const vector<T> &_values) {
+        values = _values;
+        n = int(values.size());
+        int levels = largest_bit(n) + 1;
+        range_low.resize(levels);
+ 
+        for (int k = 0; k < levels; k++)
+            range_low[k].resize(n - (1 << k) + 1);
+ 
+        for (int i = 0; i < n; i++)
+            range_low[0][i] = values[i]; // here store the initial value of vector first row arr[i]
+ 
+        for (int k = 1; k < levels; k++)
+            for (int i = 0; i <= n - (1 << k); i++)
+                range_low[k][i] = __gcd(range_low[k - 1][i], range_low[k - 1][i + (1 << (k - 1))]); // Change operator here
+    }
+    // Note: breaks ties by choosing the largest index.
+    T query_value(int a, int b) const {
+        assert(0 <= a && a < b && b <= n);
+        int level = largest_bit(b - a);
+        return __gcd(range_low[level][a], range_low[level][b - (1 << level)]); // change operator here
+    }
+};
+
