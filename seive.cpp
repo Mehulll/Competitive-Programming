@@ -22,5 +22,5 @@ void sieve(int maximum) {
         }
 }
 
-const A_MAX = 1e6+5;
-seive(A_MAX);
+const int A_MAX = 1e6+5;
+sieve(A_MAX);
