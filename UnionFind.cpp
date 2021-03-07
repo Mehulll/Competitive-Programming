@@ -16,3 +16,5 @@ struct UnionFind {
   bool same(int x, int y) { return find(x) == find(y);}
   int size(int x) { return -d[find(x)];}
 };
+
+UnionFind uf(n);
