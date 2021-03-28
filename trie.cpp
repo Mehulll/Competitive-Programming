@@ -1,3 +1,8 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+
 struct trie{
 	bool isend;
 	unordered_map<char,trie*> mp;
@@ -5,22 +10,56 @@ struct trie{
 		isend = false;
 	}
 };
- 
-struct trie *root;
- 
-int flag = true;
- 
+
+struct trie* root;
+
 void insert(string str){
 	struct trie* cur = root;
-	for(int i = 0 ; i < (int)str.size() ; i++){
-		if(cur->isend == true)
-			flag = false;
-		if(!cur->mp.count(str[i]))
-			cur->mp[str[i]] = new trie;
-		cur = cur->mp[str[i]];
+	for(char ch : str){
+		if(!cur->mp.count(ch))
+			cur->mp[ch] = new trie;
+		cur = cur->mp[ch];
 	}
 	cur->isend = true;
-	for(int i = 0 ; i < 10 ; i++)
-		if(cur->mp.count(i+'0'))
-			flag = false;
 }
+
+bool search(string str){
+	struct trie* cur = root;
+	for(char ch : str){
+		if(!cur->mp.count(ch))
+			return false;
+		cur = cur->mp[ch];
+	}
+	return cur->isend;
+}
+
+void test(){
+	int n;
+	cin >> n;
+	root = new trie;
+	while(n--){
+		string str;
+		cin >> str;
+		insert(str);
+	}
+	cin >> n;
+	while(n--){
+		string str;
+		cin >> str;
+		cout<<search(str)<<"\n";
+	}
+}
+
+int main(){
+  ios_base::sync_with_stdio(NULL);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  int T = 1;
+  // cin >> T;
+  while(T--){
+    test();
+  }
+}
+
+// every tree is a valid splay tree
+// 
