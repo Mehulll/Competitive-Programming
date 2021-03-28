@@ -33,6 +33,16 @@ bool search(string str){
 	return cur->isend;
 }
 
+bool prefix(string str){
+	struct trie* cur = root;
+	for(char ch : str){
+		if(!cur->mp.count(ch))
+			return false;
+		cur = cur->mp[ch];
+	}
+	return true;
+}
+
 void test(){
 	int n;
 	cin >> n;
