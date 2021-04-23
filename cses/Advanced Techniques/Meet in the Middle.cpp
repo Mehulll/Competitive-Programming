@@ -6,7 +6,8 @@ using namespace std;
 vector<int> calc(vector<int> a){
 	int n = a.size();
 	vector<int> all;
-	for(int i = 0 ; i < (1 << n) ; i++){
+	all.push_back(0);
+	for(int i = 1 ; i < (1 << n) ; i++){
 		int sum = 0;
 		for(int j = 0 ; j < n ; j++){
 			if(i & (1 << j)){
@@ -21,14 +22,6 @@ vector<int> calc(vector<int> a){
 void test(){
 	int n , x;
 	cin >> n >> x;
-	if(n == 1){
-		int l;
-		cin >> l;
-		if(l == x){
-			cout<<"1\n";
-			return;
-		}
-	}
 	vector<int> a , b;
 	for(int i = 0 ; i < n/2 ; i++){
 		int l;
@@ -45,15 +38,14 @@ void test(){
 	sort(a.begin(),a.end());
 	sort(b.begin(),b.end());
 	int ans = 0;
-	int sz  = a.size();
 	for(int i = 0 ; i <(int) a.size() ; i++){
 		int p = x-a[i];
-		auto l = lower_bound(b.begin(),b.end(),p) - b.begin();
+		auto l = lower_bound(b.begin(),b.end(),p);
 		auto y = upper_bound(b.begin(),b.end(),p) - b.begin();
-		if(l == sz)
+		if(l == a.end())
 			continue;
 		else{
-			ans += y-l;
+			ans += y-(l-b.begin());
 		}
 	}
 	cout<<ans<<"\n";
