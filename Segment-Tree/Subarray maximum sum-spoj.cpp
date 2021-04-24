@@ -9,10 +9,10 @@ const int N = 1e5 + 5;
 const int INF = -1e12;
 
 struct my_node{
-    int node_val = 0;
-    int pref = 0;
-    int suff = 0;
-    int ans = 0;
+    int node_val = INF;
+    int pref = INF;
+    int suff = INF;
+    int ans = INF;
     my_node(){}
     my_node(int val){
         node_val = val;
@@ -56,7 +56,7 @@ struct segtree{
         t.resize(4 * len);
         u.resize(4 * len);
         lazy.resize(4 * len);
-        identity_element = INF;
+        identity_element = node();
         identity_transformation = update();
     }
     
