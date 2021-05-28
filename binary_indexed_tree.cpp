@@ -22,3 +22,4 @@ struct BIT {
     return sum(r-1) - sum(l-1);
   }
 };
+// use zero based index in every function its ++ in function
