@@ -1,3 +1,4 @@
+// Atcoder Regular B - Insurance
 void solve(){
     int n;
    cin >> n;
