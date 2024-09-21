@@ -22,5 +22,7 @@ struct BIT {
     return sum(r-1) - sum(l-1);
   }
 };
+
+BIT<int> bit(n);
 // use zero based index in every function its ++ in function
 // one index at 0 query bit.sum(0,1)
